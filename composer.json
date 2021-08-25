@@ -1,0 +1,19 @@
+{
+    "name": "onlyshow/wallet-api-sdk",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "OnlyShow\\WalletApiSdk\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

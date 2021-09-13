@@ -8,9 +8,9 @@ namespace Onlyshow\WalletApiSdk {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'X-AjaxPro-Method:ShowList',
-                'Content-Type: application/json; charset=utf-8',
-                'Content-Length: ' . strlen($data_string))
+            'X-AjaxPro-Method:ShowList',
+            'Content-Type: application/json; charset=utf-8',
+            'Content-Length: ' . strlen($data_string))
         );
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);

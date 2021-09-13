@@ -12,6 +12,10 @@ class Clients
             throw new \InvalidArgumentException('param merchant_number miss');
         }
 
+        if (!array_key_exists('wallet_id', $configs)) {
+            throw new \InvalidArgumentException('param wallet_id miss');
+        }
+
         if (!array_key_exists('api_key', $configs)) {
             throw new \InvalidArgumentException('param api_key miss');
         }
@@ -28,8 +32,8 @@ class Clients
     public function supportCoins($showBalance = true)
     {
         $body = array(
-            'merchantId' => $this->configs['merchant_number'],
-            'showBalance' => $showBalance
+            'merchant_id' => $this->configs['merchant_number'],
+            'wallet_id' => $this->configs['wallet_id'],
         );
 
         $body = json_encode($body);
@@ -54,12 +58,13 @@ class Clients
     }
 
     // 生成地址
-    public function createAddress($coinType, $callUrl)
+    public function createAddress($mainCoinType, $callUrl)
     {
         $body = array(
-            'merchantId' => $this->configs['merchant_number'],
-            'coinType' => $coinType,
-            'callUrl' => $callUrl,
+            'merchant_id' => $this->configs['merchant_number'],
+            'wallet_id' => $this->configs['wallet_id'],
+            'main_coin_type' => $mainCoinType,
+            'call_url' => $callUrl,
         );
 
         $body = json_encode($body);
@@ -83,47 +88,18 @@ class Clients
         return http_post($url, $data_string);
     }
 
-    // 校验地址合法性
-    public function checkAddress($mainCoinType, $address)
-    {
-        $body = array(
-            'merchantId' => $this->configs['merchant_number'],
-            'mainCoinType' => $mainCoinType,
-            'address' => $address,
-        );
-
-        $body = json_encode($body);
-        $timestamp = time();
-        $nonce = rand(100000, 999999);
-
-        $url = $this->configs['gateway_address'].'/mch/check/address';
-        $key = $this->configs['api_key'];
-
-        $sign = md5($body.$key.$nonce.$timestamp);
-        
-        $data = array(
-            'timestamp' => $timestamp,
-            'nonce' => $nonce,
-            'sign' => $sign,
-            'body' => $body
-        );
-
-        $data_string = json_encode($data);
-
-        return http_post($url, $data_string);
-    }
-
     // 发送提币申请
     public function withdraw($mainCoinType, $coinType, $amount, $address, $callUrl, $businessId, $memo)
     {
         $body = array(
-            'merchantId' => $this->configs['merchant_number'],
-            'mainCoinType' => $mainCoinType,
+            'merchant_id' => $this->configs['merchant_number'],
+            'wallet_id' => $this->configs['wallet_id'],
+            'main_coin_type' => $mainCoinType,
             'address' => $address,
             'amount' => $amount,
-            'coinType' => $coinType,
-            'callUrl' => $callUrl,
-            'businessId' => $businessId,
+            'coin_type' => $coinType,
+            'call_url' => $callUrl,
+            'business_id' => $businessId,
             'memo' => $memo
         );
 

@@ -1,7 +1,8 @@
 {
     "name": "onlyshow/wallet-api-sdk",
     "require": {
-
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "autoload": {
         "psr-4": {

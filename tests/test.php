@@ -13,7 +13,6 @@ $configs = [
     'api_key' => 'a5c0a8dc50887aedd08f34e431585a32',
     // 请求网关地址
     'gateway_address' => 'http://192.168.69.128:19501',
-//    'gateway_address' => 'http://dev.bgwallet.com',
 ];
 
 $client = new OnlyShow\WalletApiSdk\Clients($configs);
